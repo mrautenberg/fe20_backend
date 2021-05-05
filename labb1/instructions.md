@@ -3,8 +3,8 @@
 ## Krav för G
 
 - [ X ] Sätta upp en webbserver med node.js och ytterligare ett bibliotek
-- Serva filer som ligger i undermapp public/
-- Kort dokumentation med källor och kommentarer
+- [ X ] Serva filer som ligger i undermapp public/
+- [ X ] Kort dokumentation med källor och kommentarer
 
 ## Krav för VG
 
