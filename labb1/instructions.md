@@ -2,7 +2,7 @@
 
 ## Krav för G
 
-- Sätta upp en webbserver med node.js och ytterligare ett bibliotek
+- [ X ] Sätta upp en webbserver med node.js och ytterligare ett bibliotek
 - Serva filer som ligger i undermapp public/
 - Kort dokumentation med källor och kommentarer
 
