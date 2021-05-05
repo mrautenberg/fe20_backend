@@ -20,16 +20,22 @@ app.use(express.static(path.join(__dirname, "public")));
   - Skapa ytterligare en enpoint, gärna POST som hanterar data och ger tillbaks information, t ex antal vokaler
 */
 
-// Testing get request to "/"
+// Testing get request to "/hello"
 app.get("/hello", (req, res) => {
-  res.send("Hello World!");
+  res.json({ msg: "Hello World!" });
 });
 
-app.get("/data", (req, res) => {
+app.get("/api/random", (req, res) => {
+  // res.json({"number": 13 });
+  res.json({ number: "Random number between 0 and 1023 returned!" });
+});
+
+app.get("/api/custom_random/num", (req, res) => {
   res.send("Data accessed!");
 });
 
-app.post("/data", (req, res) => {
+app.post("/api/INGENANINGJUSTNU!!!", (req, res) => {
+  // Hantera data och ge tillbaks information, t ex antal vokaler
   res.send("Data posted!");
 });
 
