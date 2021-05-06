@@ -9,6 +9,6 @@
 ## Krav för VG
 
 - Litet backend med följande endpoint
-  - GET/api/random -- returnera ett JSON-objekt i formatet {"number": tal} där tal är mellan 0 och 1023
-  - GET/api/custom_random/num -- returnera ett slumpmässigt tal mellan + och num enligt samma princip som ovan
+  [ X ] GET/api/random -- returnera ett JSON-objekt i formatet {"number": tal} där tal är mellan 0 och 1023
+  [ X ] GET/api/custom_random/num -- returnera ett slumpmässigt tal mellan + och num enligt samma princip som ovan
   - Skapa ytterligare en enpoint, gärna POST som hanterar data och ger tillbaks information, t ex antal vokaler

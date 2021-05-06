@@ -1,6 +1,22 @@
+/*
+ *  @TODO May 6th
+ *    [Creating routes & controllers]
+ *    [Body parser --> how does it work and is it needed?
+ *                     app.use(express.json())]
+ *    [How does the req.params object look after body parser?
+ *         and is it possible to access its value?]
+ *
+ */
+
 // Require express and create webserver
 const express = require("express");
 const app = express();
+
+// Morgan used for logging
+const morgan = require("morgan");
+
+// Colors used for colorizing messages in console
+const colors = require("colors");
 
 // Path required for serving static files
 const path = require("path");
@@ -12,34 +28,49 @@ const PORT = 5000;
 // currently serving an index.html file with an img and simple stylesheet
 app.use(express.static(path.join(__dirname, "public")));
 
-// ============== CONTINUE HERE VG  ================== //
+// Morgan logging middleware initialized
+app.use(morgan("dev"));
 
-/*
-  - GET/api/random -- returnera ett JSON-objekt i formatet {"number": tal} där tal är mellan 0 och 1023
-  - GET/api/custom_random/num -- returnera ett slumpmässigt tal mellan + och num enligt samma princip som ovan
-  - Skapa ytterligare en enpoint, gärna POST som hanterar data och ger tillbaks information, t ex antal vokaler
-*/
-
-// Testing get request to "/hello"
-app.get("/hello", (req, res) => {
-  res.json({ msg: "Hello World!" });
-});
-
+// GET random number between 0 & 1023
 app.get("/api/random", (req, res) => {
-  // res.json({"number": 13 });
-  res.json({ number: "Random number between 0 and 1023 returned!" });
+  const randomNumber = Math.floor(Math.random() * 1023);
+  res.json({ number: randomNumber });
 });
 
-app.get("/api/custom_random/num", (req, res) => {
-  res.send("Data accessed!");
+// Write a number in the URL and add it to a random number
+app.get("/api/custom_random/:num", (req, res) => {
+  // Access URL param value in req object
+  const params = req.params;
+
+  // Creating a random number which we add params to
+  const randomNumber = Math.floor(Math.random() * 1023);
+
+  // Custom random which floors the values that get added
+  const customRandom = Math.floor(randomNumber + parseInt(params.num));
+
+  res.json({ number: customRandom });
 });
 
-app.post("/api/INGENANINGJUSTNU!!!", (req, res) => {
-  // Hantera data och ge tillbaks information, t ex antal vokaler
-  res.send("Data posted!");
+app.post("/api/:word", (req, res) => {
+  // Hantera data och ge tillbaks information
+
+  // Access the word from params
+  const word = req.params.word;
+
+  // Make word into uppcase
+  const uppercase = word.toUpperCase();
+
+  // Check length of the word
+  const wordLength = word.length;
+
+  res.json({
+    msg: `Your word in uppercase: ${uppercase}`,
+    wordLength: wordLength,
+  });
 });
 
 // Listen to server on port 5000
+// cyan.bold just added for the fun of it, doesn't really matter
 app.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}...`);
+  console.log(`Server is listening on port ${PORT}...`.cyan.bold);
 });
