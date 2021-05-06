@@ -1,13 +1,3 @@
-/*
- *  @TODO May 6th
- *    [Creating routes & controllers]
- *    [Body parser --> how does it work and is it needed?
- *                     app.use(express.json())]
- *    [How does the req.params object look after body parser?
- *         and is it possible to access its value?]
- *
- */
-
 // Require express and create webserver
 const express = require("express");
 const app = express();
