@@ -24,6 +24,7 @@ app.use(morgan("dev"));
 // GET random number between 0 & 1023
 app.get("/api/random", (req, res) => {
   const randomNumber = Math.floor(Math.random() * 1023);
+
   res.json({ number: randomNumber });
 });
 
@@ -32,11 +33,8 @@ app.get("/api/custom_random/:num", (req, res) => {
   // Access URL param value in req object
   const params = req.params;
 
-  // Creating a random number which we add params to
-  const randomNumber = Math.floor(Math.random() * 1023);
-
   // Custom random which floors the values that get added
-  const customRandom = Math.floor(randomNumber + parseInt(params.num));
+  const customRandom = Math.floor(Math.random() * parseInt(params.num));
 
   res.json({ number: customRandom });
 });
