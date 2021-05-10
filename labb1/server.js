@@ -17,7 +17,7 @@ const PORT = 5000;
 // Serve all files in the public folder
 // currently serving an index.html file with an img and simple stylesheet
 app.use(express.static(path.join(__dirname, "public")));
-
+app.use(express.json());
 // Morgan logging middleware initialized
 app.use(morgan("dev"));
 
@@ -25,7 +25,7 @@ app.use(morgan("dev"));
 app.get("/api/random", (req, res) => {
   const randomNumber = Math.floor(Math.random() * 1023);
 
-  res.json({ number: randomNumber });
+  res.send({ number: randomNumber });
 });
 
 // Write a number in the URL and add it to a random number
@@ -39,11 +39,10 @@ app.get("/api/custom_random/:num", (req, res) => {
   res.json({ number: customRandom });
 });
 
-app.post("/api/:word", (req, res) => {
-  // Hantera data och ge tillbaks information
-
+// POST a word and get back some data about it
+app.post("/api", (req, res) => {
   // Access the word from params
-  const word = req.params.word;
+  const word = req.body.word;
 
   // Make word into uppcase
   const uppercase = word.toUpperCase();

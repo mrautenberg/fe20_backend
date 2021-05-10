@@ -18,7 +18,7 @@ app.get("/api/counter", (req, res) => {
     if (err) {
       console.log(err);
 
-      res.status(400).json({ success: false, mssg: "Bad Request" });
+      res.status(400).json({ success: false, msg: "Bad Request" });
     }
 
     // turn data in counter into string
@@ -29,13 +29,13 @@ app.get("/api/counter", (req, res) => {
 });
 
 // Add one to counter
-app.get("/api/add", (req, res) => {
+app.put("/api/add", (req, res) => {
   // Check which data in counter text file ( i.e current counter state)
   fs.readFile("./db/counter.txt", (err, data) => {
     // If error, log to console
     if (err) {
       console.log(err);
-      res.status(400).json({ success: false, mssg: "Bad Request" });
+      res.status(400).json({ success: false, msg: "Bad Request" });
     }
 
     // 1. Make content of counter.txt into a number and add 1
@@ -47,7 +47,7 @@ app.get("/api/add", (req, res) => {
 
     // Update the state of counter by adding 1 to it
     fs.writeFile("./db/counter.txt", addOne, () => {
-      res.json({ success: true, counter: addOne });
+      res.json({ success: true });
     });
   });
 });
