@@ -4,6 +4,8 @@ const chaiHttp = require("chai-http");
 const { expect } = chai;
 
 chai.use(chaiHttp);
+
+// Testing random number
 describe("/api/random should return a random number between 0-1023", () => {
   it("to return a random number between 0-1023 and status to be success", (done) => {
     chai
@@ -18,6 +20,7 @@ describe("/api/random should return a random number between 0-1023", () => {
   });
 });
 
+// Testing data type --> counter to be string
 describe("/api/counter should be a string", () => {
   it("to return the number in counter and status to be success", (done) => {
     chai
@@ -32,6 +35,7 @@ describe("/api/counter should be a string", () => {
   });
 });
 
+// Testing data type in add --> parameters in counter should be number
 describe("/api/add parameters should be numbers", () => {
   it("the parameters should be numbers", (done) => {
     chai
@@ -45,6 +49,7 @@ describe("/api/add parameters should be numbers", () => {
   });
 });
 
+// Testing add functionality --> Do we add one to the counter?
 describe("/api/add should add +1 to the counter", () => {
   it("to add one to the number in counter ", (done) => {
     chai
@@ -57,6 +62,7 @@ describe("/api/add should add +1 to the counter", () => {
   });
 });
 
+// Testing data type in subtract --> parameters in counter should be number
 describe("/api/subtract parameters should be numbers", () => {
   it("the parameters should be numbers", (done) => {
     chai
@@ -70,6 +76,7 @@ describe("/api/subtract parameters should be numbers", () => {
   });
 });
 
+// Testing add functionality --> Do we subtract one to the counter?
 describe("/api/subtract should subtract -1 to the counter", () => {
   it("to subtract one to the number in counter ", (done) => {
     chai

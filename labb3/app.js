@@ -6,13 +6,13 @@ const path = require("path");
 
 app.use(express.static(path.join(__dirname, "public")));
 
-// 1A
+// GET random number
 app.get("/api/random", (req, res) => {
   const random = Math.floor(Math.random() * 1023);
   res.json({ status: "success", number: random });
 });
 
-// 2A GET counter data
+// GET counter data
 app.get("/api/counter", (req, res) => {
   // Check data is inside the counter textfile
   fs.readFile("./db/counter.txt", (err, data) => {
@@ -26,7 +26,7 @@ app.get("/api/counter", (req, res) => {
   });
 });
 
-// 2B GET request to add one
+// GET request to add one
 app.get("/api/add", (req, res) => {
   fs.readFile("./db/counter.txt", (err, data) => {
     if (err) {
@@ -46,7 +46,7 @@ app.get("/api/add", (req, res) => {
   });
 });
 
-// 2C GET request to subtract one
+// GET request to subtract one
 app.get("/api/subtract", (req, res) => {
   fs.readFile("./db/counter.txt", (err, data) => {
     if (err) {
