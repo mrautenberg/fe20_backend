@@ -50,7 +50,7 @@ app.post("/api", (req, res) => {
   // Check length of the word
   const wordLength = word.length;
 
-  res.json({
+  res.send({
     msg: `Your word in uppercase: ${uppercase}`,
     wordLength: wordLength,
   });
