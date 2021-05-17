@@ -1,61 +1,73 @@
 const express = require("express");
-
 const app = express();
+const fs = require("fs");
 const PORT = 5000;
+const path = require("path");
 
-const morgan = require("morgan");
+app.use(express.static(path.join(__dirname, "public")));
 
-app.use(morgan("dev"));
-app.use(express.json());
-
-// Test if server is running
-
-// Get a random number between 0 - 1023
+// 1A
 app.get("/api/random", (req, res) => {
-  // const randomNumber = Math.floor(Math.random() * 1023);
-
-  const random = 55;
-
-  res.send({ status: "success", number: random });
+  const random = Math.floor(Math.random() * 1023);
+  res.json({ status: "success", number: random });
 });
 
-// Add two numbers
-app.post("/api/add", (req, res) => {
-  const add = (num1, num2) => {
-    return num1 + num2;
-  };
+// 2A GET counter data
+app.get("/api/counter", (req, res) => {
+  // Check data is inside the counter textfile
+  fs.readFile("./db/counter.txt", (err, data) => {
+    if (err) {
+      console.log(err);
+    }
 
-  res.json({ status: "success", number: add(num1, num2) });
-});
-
-// Subtract num 2 from num 1 numbers
-app.post("/api/subtract", (req, res) => {
-  const subtract = (num1, num2) => {
-    return num1 - num2;
-  };
-
-  res.json({ status: "success", number: subtract(num1, num2) });
-});
-
-// Post a word and return number of letters
-// and word in UPPERCASE
-app.post("/api", (req, res) => {
-  // Access the word from params
-  const word = req.body.word;
-
-  // Make word into uppcase
-  const uppercase = word.toUpperCase();
-
-  // Check length of the word
-  const wordLength = word.length;
-
-  res.send({
-    status: "success",
-    msg: `Your word in uppercase: ${uppercase}`,
-    wordLength: wordLength,
+    // Counter.txt content into string
+    let countNum = data.toString();
+    res.json({ status: "success", counter: countNum });
   });
 });
 
-app.listen(PORT, () => console.log(`Listening on port ${PORT}...`));
+// 2B GET request to add one
+app.get("/api/add", (req, res) => {
+  fs.readFile("./db/counter.txt", (err, data) => {
+    if (err) {
+      console.log(err);
+    }
+    countBeforeAdd = Number(data).toString();
+    addOne = (Number(data) + 1).toString();
+    console.log(
+      `You have added 1 to the counter. It was ${countBeforeAdd}, and the new number is: ${addOne}`
+    );
+    fs.writeFile("./db/counter.txt", addOne, () => {
+      res.json({
+        countBeforeAdd: Number(countBeforeAdd),
+        counter: Number(addOne),
+      });
+    });
+  });
+});
+
+// 2C GET request to subtract one
+app.get("/api/subtract", (req, res) => {
+  fs.readFile("./db/counter.txt", (err, data) => {
+    if (err) {
+      console.log(err);
+    }
+    countBeforeSubtract = Number(data).toString();
+    subtractOne = (Number(data) - 1).toString();
+    console.log(
+      `It was ${countBeforeSubtract}, countNum is now ${subtractOne}`
+    );
+    fs.writeFile("./db/counter.txt", subtractOne, () => {
+      res.json({
+        countBeforeSubtract: Number(countBeforeSubtract),
+        counter: Number(subtractOne),
+      });
+    });
+  });
+});
+
+app.listen(PORT, () => {
+  console.log(`Port running at port ${PORT}`);
+});
 
 module.exports = app;
